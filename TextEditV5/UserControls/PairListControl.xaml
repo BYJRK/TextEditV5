@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="TextEditV5.UserControls.PairListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TextEditV5.UserControls"
+             xmlns:root="clr-namespace:TextEditV5"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800" FontFamily="Microsoft Yahei" FontSize="13">
+    <UserControl.Resources>
+        <root:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid Background="{DynamicResource bColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="37"/>
+            <RowDefinition Height="528*"/>
+            <RowDefinition Height="37"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="Button" x:Key="UpperButtonStyle">
+                <Setter Property="Margin" Value="0,5,5,5"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Width" Value="50"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="BorderBrush" Value="LightGray"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="TextBox" x:Key="LeftTextBox">
+                <Setter Property="Background" Value="{DynamicResource bColor}"/>
+                <Setter Property="Foreground" Value="{DynamicResource fColor}"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="TextBlock" x:Key="TextBlock">
+                <Setter Property="Foreground" Value="{DynamicResource fColor}"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="CheckBox" x:Key="CheckBoxStyle">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Foreground" Value="{DynamicResource fColor}"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+        </Grid.Resources>
+        <TextBox Name="CurrentListName" Text="当前转换列表" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="5,5,0,5" Width="250" Grid.ColumnSpan="2" IsReadOnly="True" Style="{DynamicResource LeftTextBox}"/>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
+            <Button Content="添加" Style="{DynamicResource UpperButtonStyle}" Click="TopRightButton_Click"/>
+            <Button Content="删除" Style="{DynamicResource UpperButtonStyle}" Click="TopRightButton_Click"/>
+            <Button Content="清空" Style="{DynamicResource UpperButtonStyle}" Click="TopRightButton_Click"/>
+            <Button Content="排序" Style="{DynamicResource UpperButtonStyle}" Click="TopRightButton_Click"/>
+            <Button Width="25" Margin="0,5" BorderThickness="1,1,0,1" Style="{DynamicResource UpperButtonStyle}" Click="MoveUp_Click">
+                <Image Source="/TextEditV5;component/Icons/ic_details_black_24dp.png" RenderTransformOrigin="0.5,0.5" Height="16" Width="16">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Button>
+            <Button Width="25" BorderThickness="0,1,1,1" Style="{DynamicResource UpperButtonStyle}" Click="MoveDown_Click">
+                <Image Source="/TextEditV5;component/Icons/ic_details_black_24dp.png" Height="16" Width="16"/>
+            </Button>
+        </StackPanel>
+        <Border Margin="5,0,0,0" Grid.Row="1" BorderThickness="1" BorderBrush="Gray">
+            <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="左：" Style="{DynamicResource TextBlock}"/>
+                    <TextBlock Text="右：" Grid.Row="1" Style="{DynamicResource TextBlock}"/>
+                    <TextBox Name="LeftContent" Style="{DynamicResource LeftTextBox}" Grid.Column="1" KeyUp="LeftRightContent_KeyUp"/>
+                    <TextBox Name="RightContent" Style="{DynamicResource LeftTextBox}" Grid.Row="1" Grid.Column="1" KeyUp="LeftRightContent_KeyUp"/>
+                </Grid>
+                <Separator/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="分隔符："  Style="{DynamicResource TextBlock}"/>
+                    <TextBlock Text="注释：" Grid.Row="1" Style="{DynamicResource TextBlock}"/>
+                    <TextBox Name="SeparatorSymbol" Style="{DynamicResource LeftTextBox}" Grid.Column="1" Text="》" KeyUp="SeparatorSymbol_KeyUp"/>
+                    <TextBox Name="CommentSymbol" Style="{DynamicResource LeftTextBox}" Grid.Row="1" Grid.Column="1" Text="//" KeyUp="CommentSymbol_KeyUp"/>
+                </Grid>
+                <Separator/>
+                <CheckBox Name="UsingRex" Content="使用正则表达式" Click="CheckBox_Click" Style="{DynamicResource CheckBoxStyle}"/>
+                <StackPanel Visibility="{Binding ElementName=UsingRex,Path=IsChecked,Converter={StaticResource BoolToVisibilityConverter}}">
+                    <CheckBox Name="IgnoreCase" Content="忽略大小写" Click="CheckBox_Click" Style="{DynamicResource CheckBoxStyle}"/>
+                    <CheckBox Name="Multiline" Content="多行模式" Click="CheckBox_Click" Style="{DynamicResource CheckBoxStyle}"/>
+                    <CheckBox Name="Singleline" Content="单行模式" Click="CheckBox_Click" Style="{DynamicResource CheckBoxStyle}"/>
+                    <CheckBox Name="IgnorePatternWhitespace" Content="忽略空白" Click="CheckBox_Click" Style="{DynamicResource CheckBoxStyle}"/>
+                    <CheckBox Name="ExplicitCapture" Content="显式捕获" Click="CheckBox_Click" Style="{DynamicResource CheckBoxStyle}"/>
+                    <Separator/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <ListBox Name="PairListBox" Margin="5,0" Grid.Row="1" Grid.Column="1" FontSize="14" SelectionChanged="PairListBox_SelectionChanged" Background="{DynamicResource bColor}" Foreground="{DynamicResource fColor}">
+            <ListBoxItem Content="第一行"/>
+            <ListBoxItem Content="第二行"/>
+            <ListBoxItem Content="第三行"/>
+        </ListBox>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Button Content="保存" Margin="5" Style="{DynamicResource UpperButtonStyle}" Click="SaveButton_Click"/>
+            <Button Content="另存" Style="{DynamicResource UpperButtonStyle}" Click="SaveAs_Click"/>
+            <Button Content="关闭" Style="{DynamicResource UpperButtonStyle}" Click="Close_Click"/>
+        </StackPanel>
+        <TextBox Name="InfoBar" Grid.Row="2" Grid.Column="1" Text="信息栏" IsReadOnly="True" HorizontalContentAlignment="Left" Style="{DynamicResource LeftTextBox}"/>
+    </Grid>
+</UserControl>

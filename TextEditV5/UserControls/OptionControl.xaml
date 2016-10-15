@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="TextEditV5.UserControls.OptionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TextEditV5.UserControls"
+             mc:Ignorable="d" Background="White"
+             d:DesignHeight="800" d:DesignWidth="400">
+    <Grid>
+        <ScrollViewer Margin="5" Background="White" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="RadioButton" x:Key="RadioButtonStyle">
+                        <Setter Property="Margin" Value="16,4"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+                    <Style TargetType="CheckBox" x:Key="CheckBoxStyle">
+                        <Setter Property="Margin" Value="16,4"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+                    <Style TargetType="TextBlock" x:Key="RadioTextStyle">
+                        <Setter Property="Padding" Value="3,0,0,0"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+                        <Setter Property="Margin" Value="16,4"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+                    <Style TargetType="Border" x:Key="ColorBorderStyle">
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Width" Value="150"/>
+                    </Style>
+                    <Style TargetType="TextBox" x:Key="TextBoxStyle">
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Height" Value="24"/>
+                    </Style>
+                    <Style TargetType="Button" x:Key="ConfirmButtonStyle">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="Width" Value="55"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="Margin" Value="8"/>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Text="文本框颜色" Margin="10" FontSize="20"/>
+                <StackPanel Margin="5">
+                    <RadioButton Name="LightTheme" Style="{StaticResource RadioButtonStyle}" IsChecked="True">
+                        <Border BorderBrush="#FFCCCCCC" Style="{StaticResource ColorBorderStyle}">
+                            <TextBlock Text="浅色" Style="{StaticResource RadioTextStyle}"/>
+                        </Border>
+                    </RadioButton>
+                    <RadioButton Name="DarkTheme" Style="{StaticResource RadioButtonStyle}">
+                        <Border BorderBrush="#FF555555" Background="Black" Style="{StaticResource ColorBorderStyle}">
+                            <TextBlock Text="深色" Style="{StaticResource RadioTextStyle}" Foreground="White"/>
+                        </Border>
+                    </RadioButton>
+                </StackPanel>
+                <TextBlock Text="功能设置" Margin="10" FontSize="20"/>
+                <StackPanel Margin="5">
+                    <CheckBox Name="alwaysShowingBox2" Content="总是显示第二个文本框" Style="{DynamicResource CheckBoxStyle}"/>
+                    <CheckBox Name="autoReset" Content="单击功能单选按钮后自动重置" Style="{DynamicResource CheckBoxStyle}"/>
+                    <CheckBox Name="detailedCountInfo" Content="更加详细的字数统计" Style="{DynamicResource CheckBoxStyle}"/>
+                    <CheckBox Name="autoCache" Content="退出时自动缓存" IsChecked="True" Style="{DynamicResource CheckBoxStyle}"/>
+                    <CheckBox Name="cutButton" Content="剪切按钮" Style="{DynamicResource CheckBoxStyle}"/>
+                    <CheckBox Name="showRunTime" Content="提示执行耗时" Style="{DynamicResource CheckBoxStyle}"/>
+                    <CheckBox Name="autoCheckUpdate" Content="自动检查更新" Style="{DynamicResource CheckBoxStyle}"/>
+                </StackPanel>
+                <TextBlock Text="软件参数" Margin="10" FontSize="20"/>
+                <Grid Margin="5" Width="360" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="最大历史记录数量：" Style="{DynamicResource TextBlockStyle}"/>
+                    <TextBox Name="maxHistory" Text="100" Grid.Column="1" Style="{DynamicResource TextBoxStyle}"/>
+                    <TextBlock Text="自定义列表文件夹：" Grid.Row="1" Style="{DynamicResource TextBlockStyle}"/>
+                    <TextBox Name="pairFolder" Text="pair folder" Grid.Column="1" Grid.Row="1" Style="{DynamicResource TextBoxStyle}"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Button Content="确认" Style="{DynamicResource ConfirmButtonStyle}" Click="ConfirmButton_Click"/>
+                    <Button Content="关闭" Style="{DynamicResource ConfirmButtonStyle}" Click="ConfirmButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

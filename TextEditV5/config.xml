@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<property>
+  <version>3.0.0 beta1</version>
+  <color>LightTheme</color>
+  <setting>
+    <alwaysShowingBox2 value="false"/>
+    <autoReset value="false"/>
+    <detailedCountInfo value="false"/>
+    <autoCache value="true"/>
+    <cutButton value="false"/>
+    <showRunTime value="false"/>
+    <autoCheckUpdate value="true"/>
+  </setting>
+  <parameter>
+    <maxHistory>100</maxHistory>
+    <pairFolder>pair folder</pairFolder>
+  </parameter>
+</property>
